@@ -103,5 +103,56 @@ public class setMatrixZero {
 
     //test
 
+    static ArrayList<ArrayList<Integer>> zeroMatrixOptimal(ArrayList<ArrayList<Integer>> matrix, int n, int m) {
+        int cols0 = 1;
+
+        //traverse the arr
+        // step 1: Traverse the matrix and
+    // mark 1st row & col accordingly:
+
+        for(int i =0;i<n;i++){
+            for(int j=0;j<m;j++){
+
+                if (matrix.get(i).get(j) == 0) {
+                    matrix.get(i).set(0,0);
+
+                    if (j !=0 ) {
+                        matrix.get(0).set(j,0);
+                    }else
+                        cols0 =0;
+                }
+                
+            }
+        }
+
+        // Step 2: Mark with 0 from (1,1) to (n-1, m-1):
+        for(int i=1;i<n;i++){
+            for(int j=1;j<m;j++){
+                if (matrix.get(i).get(j) != 0) {
+                   // check for col & row:
+                   if (matrix.get(i).get(0) == 0 || matrix.get(0).get(j) == 0) {
+                     matrix.get(i).set(j,0);;
+                   }
+                }
+            }
+        }
+
+        
+        //step 3: Finally mark the 1st col & then 1st row:
+        if (matrix.get(0).get(0) == 0) {
+            for (int j = 0; j < m; j++) {
+                matrix.get(0).set(j, 0);
+            }
+        }
+        if (cols0 == 0) {
+            for (int i = 0; i < n; i++) {
+                matrix.get(i).set(0, 0);
+            }
+        }
+
+        return matrix;
+    }
+
+
 
 }
