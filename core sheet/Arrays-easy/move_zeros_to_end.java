@@ -60,9 +60,9 @@ public class move_zeros_to_end {
 
         for(int i = j+1;i<arr.length;i++){
             if (arr[i] != 0) {
-                int tmp = a[i];
-                a[i] = a[j];
-                a[j] = tmp;
+                int tmp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = tmp;
                 j++;
             }
         }
