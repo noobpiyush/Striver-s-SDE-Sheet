@@ -3,33 +3,63 @@ import java.util.ArrayList;
 public class move_zeros_to_end {
 
     public static void main(String[] args) {
-        int arr[] = {1 ,0 ,2 ,3 ,0 ,4 ,0 ,1};
+        int arr[] = {1 ,0 ,2 ,3 ,0 ,4 ,0 ,1,12,23};
         
-        printArray(arr,arr.length);
-        System.out.println();
-        int newArr[] = moveZerosToEndBrute(arr);
-        printArray(newArr,arr.length);
+        int temp[] = moveZerosToEndBrute(arr);
+
+        // printArray(temp, arr.length);
+
+        moveZerosToEndOptimal(arr, arr.length);
+        
+        printArray(arr, 0);
         
         
     }
 
-    public static int[] moveZerosToEndBrute(int arr[]) {
 
-        ArrayList<Integer> list = new ArrayList<>();
+    public static void moveZerosToEndOptimal(int arr[],int n){
 
-        for (int i = 0; i < arr.length; i++) {
+        int j = -1;
+
+        for (int i = 0; i < n; i++) {
             if (arr[i] != 0) {
-                list.add(arr[i]);
+                j = i;
+                break;
             }
         }
 
-        int nz = list.size();
-
-        for (int i = 0; i < nz; i++) {
-            arr[i] = list.get(i);
+        if (j == -1) {
+            return;
         }
 
-        for(int i = nz;i<arr.length;i++){
+        for(int i = j+1;i<n;i++){
+            if (arr[i] != 0) {
+                int temp = arr[j];
+                arr[j]  = arr[i];
+                arr[i] = temp; 
+            }
+        }
+    
+    }
+    
+
+    public static int[] moveZerosToEndBrute(int arr[]) {
+
+        ArrayList<Integer> nonZeroElements = new ArrayList<>();
+
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] != 0) {
+                nonZeroElements.add(arr[i]);
+            }
+        }
+
+        int nonZero = arr.length - nonZeroElements.size();
+
+        for (int i = 0; i < nonZeroElements.size(); i++) {
+            arr[i] = nonZeroElements.get(i);
+        }
+
+        for (int i = nonZeroElements.size(); i < arr.length; i++) {
             arr[i] = 0;
         }
 
@@ -43,33 +73,7 @@ public class move_zeros_to_end {
         }
     }
 
-    public static int[] moveZerosToEndOptimal(int arr[]) {
-
-        int j = -1;
-
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == 0) {
-                j = i;
-                break;
-            }
-        }
-
-        if (j ==-1) {
-           return arr;
-        }
-
-        for(int i = j+1;i<arr.length;i++){
-            if (arr[i] != 0) {
-                int tmp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = tmp;
-                j++;
-            }
-        }
-
-        return arr;
-
-    }
+    
 
 
 }
